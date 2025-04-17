@@ -39,37 +39,46 @@
               </svg>
               <span class="ml-2">Account</span>
             </NuxtLink>
+
+
             <NuxtLink to="/wishlist"
               :class="isActive('/wishlist') ? 'text-emerald-600' : 'text-gray-700 hover:text-emerald-600'"
-              class="flex items-center relative">
+              class="flex items-center ">
+              <div class="relative">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <span class="ml-2 hidden md:inline">Wishlist</span>
+              
 
               <!-- Wishlist count badge -->
               <span v-if="wishlist.wishlistCount > 0"
-                class="absolute -top-2 -right-2 bg-green-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                class="absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {{ wishlist.wishlistCount }}
               </span>
+            </div>
+            <span class="ml-2 hidden md:inline">Wishlist</span>
             </NuxtLink>
 
           </div>
 
           <!-- Cart -->
-          <NuxtLink to="/cart" :class="isActive('/cart') ? 'text-emerald-600' : 'text-gray-700 hover:text-emerald-600'"
+          <NuxtLink to="/addtocart"
+            :class="isActive('/addtocart') ? 'text-emerald-600' : 'text-gray-700 hover:text-emerald-600'"
             class="flex items-center">
             <div class="relative">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <span
-                class="absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">3</span>
+              <span v-if="cart.cartCount > 0"
+                class="absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                {{ cart.cartCount }}
+              </span>
             </div>
             <span class="ml-2 hidden md:inline">Cart</span>
           </NuxtLink>
+
 
           <!-- Mobile Menu Button -->
           <button @click="toggleMobileMenu" class="md:hidden text-gray-700 hover:text-emerald-600">
@@ -167,6 +176,8 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useWishlistStore } from '@/stores/wishlist.js'
+import { useCartStore } from '@/stores/cart'
+const cart = useCartStore()
 
 const route = useRoute()
 const wishlist = useWishlistStore()
