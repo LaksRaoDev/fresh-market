@@ -25,7 +25,7 @@
         <span v-if="discount" class="ml-2 bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded">-{{ discount }}%</span>
       </div>
       <div class="flex items-center justify-between">
-        <button
+        <button @click="handleAddToCart"
           class="bg-emerald-500 hover:bg-emerald-600 text-white py-2 px-4 rounded-lg flex items-center text-sm transition-colors w-full mr-2">
           <i class="ri-shopping-cart-fill mr-2"></i>Add to Cart
         </button>
@@ -40,6 +40,7 @@
 
 <script setup>
 import { useWishlistStore } from '~/stores/wishlist'
+import { useCartStore } from '~/stores/cart'
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -55,6 +56,7 @@ const props = defineProps({
 })
 
 const wishlist = useWishlistStore()
+const cart = useCartStore()
 
 const product = props
 
@@ -69,4 +71,10 @@ const toggleWishlist = () => {
     wishlist.addToWishlist(product)
   }
 }
+
+// ✅ Add to cart function
+const handleAddToCart = () => {
+  cart.addToCart(product)
+}
+
 </script>
